@@ -84,6 +84,8 @@ const posts = [
     }
 ];
 
+/* Milestone 2
+Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.*/
 
 posts.forEach(element => {
 
@@ -127,4 +129,34 @@ postElementDOM.insertAdjacentHTML("beforeend",postMarkup )
 
 })
 
+/* Milestone 3
+Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.*/
 
+//Creo variabili per gli elementi della DOM 
+const likeBtn = document.querySelector('.like-button');
+const numberOfLikesElement = document.querySelector('.js-likes-counter');
+
+
+
+let numberOfLikes = Number.parseInt(numberOfLikesElement.textContent, 10);
+let isLiked = false;
+
+// Creo una funziona per il click del bottone, se cliccato aggiunge classe "like-button--liked" e aggiunge un +1 al numberOfLikes,  se ricliccata la rimuove e decrementa numberOfLikes.
+const likeClick = () => {
+
+  if (!isLiked) {
+    likeBtn.classList.add('like-button--liked');
+    numberOfLikes++;
+    numberOfLikesElement.textContent = numberOfLikes;
+    isLiked = !isLiked;
+  }
+
+ else {
+    likeBtn.classList.remove('like-button--liked');
+    numberOfLikes--;
+    numberOfLikesElement.textContent = numberOfLikes;
+    isLiked = !isLiked;
+  }
+};
+
+likeBtn.addEventListener('click', likeClick);
