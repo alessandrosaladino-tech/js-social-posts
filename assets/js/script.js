@@ -92,7 +92,7 @@ posts.forEach(element => {
 
     const postMarkup =
         `
-    <div class="post">
+    <div class="post" id="post_${element.id}">
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
@@ -111,7 +111,7 @@ posts.forEach(element => {
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="1">
+                <a class="like-button  js-like-button" href="javascript:;" data-postid="${element.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -124,39 +124,81 @@ posts.forEach(element => {
 </div>
 `
 
-const postElementDOM = document.querySelector(".posts-list");
-postElementDOM.insertAdjacentHTML("beforeend",postMarkup )
+    const postElementDOM = document.querySelector(".posts-list");
+    postElementDOM.insertAdjacentHTML("beforeend", postMarkup)
+
+
+    //Creo variabili per gli elementi della DOM 
+    const likeBtn = document.querySelector('#post_'+element.id+' .like-button');
+    const numberOfLikesElement = document.querySelector('#post_'+element.id+' .js-likes-counter');
+
+    
+
+    likeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        likeClick(likeBtn,numberOfLikesElement );
+    });
+
 
 })
 
 /* Milestone 3
 Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.*/
 
-//Creo variabili per gli elementi della DOM 
-const likeBtn = document.querySelector('.like-button');
-const numberOfLikesElement = document.querySelector('.js-likes-counter');
 
 
 
-let numberOfLikes = Number.parseInt(numberOfLikesElement.textContent, 10);
-let isLiked = false;
+
+
 
 // Creo una funziona per il click del bottone, se cliccato aggiunge classe "like-button--liked" e aggiunge un +1 al numberOfLikes,  se ricliccata la rimuove e decrementa numberOfLikes.
-const likeClick = () => {
+function likeClick(likeBtn, numberOfLikesElement) {
 
-  if (!isLiked) {
-    likeBtn.classList.add('like-button--liked');
-    numberOfLikes++;
-    numberOfLikesElement.textContent = numberOfLikes;
-    isLiked = !isLiked;
-  }
+    let isLiked = likeBtn.className.includes('like-button--liked'); // verificare se l'elemento ha gia la classe 'like-button--liked true/false
+    
+    let numberOfLikes = Number.parseInt(numberOfLikesElement.textContent, 10);
+    // Numbers of like qui potrebbe avere un valore diverso da come era durante il ciclo
 
- else {
-    likeBtn.classList.remove('like-button--liked');
-    numberOfLikes--;
-    numberOfLikesElement.textContent = numberOfLikes;
-    isLiked = !isLiked;
-  }
+    if (!isLiked ) {
+        likeBtn.classList.add('like-button--liked');
+        numberOfLikes++;
+        numberOfLikesElement.textContent = numberOfLikes;
+        isLiked = !isLiked;
+    }
+
+    else {
+        likeBtn.classList.remove('like-button--liked');
+        numberOfLikes--;
+        numberOfLikesElement.textContent = numberOfLikes;
+        isLiked = !isLiked;
+    }
+
 };
 
-likeBtn.addEventListener('click', likeClick);
+
+
+
+/*
+likeBtn.map(element => {
+    let numberOfLikes = Number.parseInt(numberOfLikesElement.textContent, 10);
+    let isLiked = false;
+
+    if (!isLiked) {
+        element.classList.add('like-button--liked');
+        numberOfLikes++;
+        numberOfLikesElement.textContent = numberOfLikes;
+        isLiked = !isLiked;
+    }
+
+    else {
+        element.classList.remove('like-button--liked');
+        numberOfLikes--;
+        numberOfLikesElement.textContent = numberOfLikes;
+        isLiked = !isLiked;
+    }
+    element.addEventListener('click', likeClick);
+
+})
+
+*/
