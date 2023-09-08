@@ -143,16 +143,16 @@ posts.forEach(element => {
 
 })
 
+
+
+
+
+
 /* Milestone 3
 Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.*/
 
 
-
-
-
-
-
-// Creo una funziona per il click del bottone, se cliccato aggiunge classe "like-button--liked" e aggiunge un +1 al numberOfLikes,  se ricliccata la rimuove e decrementa numberOfLikes.
+// Creo una funzione per il click del bottone, se cliccato aggiunge classe "like-button--liked" e aggiunge un +1 al numberOfLikes,  se ricliccata la rimuove e decrementa numberOfLikes.
 function likeClick(likeBtn, numberOfLikesElement) {
 
     let isLiked = likeBtn.className.includes('like-button--liked'); // verificare se l'elemento ha gia la classe 'like-button--liked true/false
@@ -176,29 +176,3 @@ function likeClick(likeBtn, numberOfLikesElement) {
 
 };
 
-
-
-
-/*
-likeBtn.map(element => {
-    let numberOfLikes = Number.parseInt(numberOfLikesElement.textContent, 10);
-    let isLiked = false;
-
-    if (!isLiked) {
-        element.classList.add('like-button--liked');
-        numberOfLikes++;
-        numberOfLikesElement.textContent = numberOfLikes;
-        isLiked = !isLiked;
-    }
-
-    else {
-        element.classList.remove('like-button--liked');
-        numberOfLikes--;
-        numberOfLikesElement.textContent = numberOfLikes;
-        isLiked = !isLiked;
-    }
-    element.addEventListener('click', likeClick);
-
-})
-
-*/
